@@ -9,7 +9,10 @@ import lombok.Data;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderLineDto {
+
     private Long id;
+
     private String productId;
+
     private Long qty;
 }

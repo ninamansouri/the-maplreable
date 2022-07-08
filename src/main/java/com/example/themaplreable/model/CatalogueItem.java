@@ -30,7 +30,7 @@ public class CatalogueItem {
     @Column(name = "price", nullable = false)
     private Double price;
 
-    @Column(name = "maxQty", nullable = false)
+    @Column(name = "max_qty", nullable = false)
     private Long maxQty;
 
     @Enumerated(EnumType.STRING)

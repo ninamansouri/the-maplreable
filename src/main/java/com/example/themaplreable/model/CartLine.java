@@ -22,7 +22,7 @@ public class CartLine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "productId", nullable = false)
+    @Column(name = "product_id", nullable = false)
     private String productId;
 
     @Column (name = "name", nullable = false)

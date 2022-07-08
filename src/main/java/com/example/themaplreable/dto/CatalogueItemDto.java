@@ -10,10 +10,16 @@ import com.example.themaplreable.model.enums.Type;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CatalogueItemDto {
+
     private String id;
+
     private String name;
+
     private String image;
+
     private Double price;
+
     private Long maxQty;
+
     private Type type;
 }
