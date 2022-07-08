@@ -13,13 +13,13 @@ import java.util.List;
  */
 @RestController()
 @RequestMapping("/order")
-public class OrderController {
+public class OrderLineController {
 
     /**
      * Constructor
      */
     @Autowired
-    public OrderController() {
+    public OrderLineController() {
     }
 
     /**

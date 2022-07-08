@@ -1,7 +1,7 @@
 package com.example.themaplreable.controller;
 
-import com.example.themaplreable.dto.CatalogueItemDto;
-import com.example.themaplreable.dto.MapleSyrupDto;
+import com.example.themaplreable.dto.ProductDto;
+import com.example.themaplreable.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,24 +12,27 @@ import java.util.List;
  */
 @RestController()
 @RequestMapping("/products")
-public class ProductsController {
+public class ProductController {
+    private final ProductService productsService;
+
 
     /**
      * Constructor
      */
     @Autowired
-    public ProductsController() {
+    public ProductController(ProductService productsService) {
+        this.productsService = productsService;
     }
 
     /**
      * Get all catalogue's product (with optional filter : type)
      *
      * @param type type
-     * @return List<CatalogueItemDto>
+     * @return List<ProductDto>
      */
     @GetMapping("/all/{type}")
-    public List<CatalogueItemDto> getCatalogue(@PathVariable("type") String type) {
-        return null;
+    public List<ProductDto> getCatalogue(@PathVariable("type") String type) {
+        return productsService.getCatalogue(type);
     }
 
     /**
@@ -39,7 +42,7 @@ public class ProductsController {
      * @return MapleSyrupDto
      */
     @GetMapping("/{productId}")
-    public MapleSyrupDto getProductInfo(@PathVariable("productId") String productId) {
-        return null;
+    public ProductDto getProductInfo(@PathVariable("productId") Long productId) {
+        return productsService.getProductInfo(productId);
     }
 }

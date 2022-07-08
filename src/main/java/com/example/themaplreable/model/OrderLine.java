@@ -6,8 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Order Line DTO.
@@ -21,11 +20,13 @@ public class OrderLine {
 
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "product_id", nullable = false)
-    private String productId;
 
     @Column(name = "qty", nullable = false)
     private Long qty;
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="product_id")
+    private Product productId;
 }

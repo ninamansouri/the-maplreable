@@ -13,13 +13,13 @@ import java.util.List;
  */
 @RestController()
 @RequestMapping("/cart")
-public class CartController {
+public class CartLineController {
 
     /**
      * Constructor
      */
     @Autowired
-    public CartController() {
+    public CartLineController() {
     }
 
     /**

@@ -3,26 +3,17 @@ package com.example.themaplreable.service;
 
 import com.example.themaplreable.dto.OrderLineDto;
 import com.example.themaplreable.dto.OrderValidationResponseDto;
-import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
- * Implementation for the OrderService interface.
+ * Service interface for the Order.
  */
-@Service
-@Transactional
-public class OrderService implements OrderServiceInterface {
+public interface OrderService {
 
     /**
      * ??????
-     *
-     * @param orderLines orderLines
-     * @return OrderValidationResponseDto
      */
-    @Override
-    public OrderValidationResponseDto placeOrder(List<OrderLineDto> orderLines) {
-        return null;
-    }
+    OrderValidationResponseDto placeOrder(List<OrderLineDto> orderLines);
+
 }

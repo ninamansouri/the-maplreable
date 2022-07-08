@@ -4,8 +4,6 @@ package com.example.themaplreable.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
-
 import javax.persistence.*;
 
 /**
@@ -20,10 +18,7 @@ public class CartLine {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    @Column(name = "product_id", nullable = false)
-    private String productId;
+    private Long id;
 
     @Column (name = "name", nullable = false)
     private String name;
@@ -36,4 +31,8 @@ public class CartLine {
 
     @Column(name = "qty", nullable = false)
     private Long qty;
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="product_id")
+    private Product productId;
 }

@@ -8,17 +8,18 @@ import lombok.Setter;
 import javax.persistence.*;
 
 /**
- * Maple Syrup Entity.
+ * Product Entity.
  */
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "maple_syrup")
-public class MapleSyrup {
+@Table(name = "product")
+public class Product {
     @Id
     @Column(name = "id", nullable = false)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "name", nullable = false)
     private String name;
