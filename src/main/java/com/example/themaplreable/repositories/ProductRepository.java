@@ -2,6 +2,7 @@ package com.example.themaplreable.repositories;
 
 
 import com.example.themaplreable.model.Product;
+import com.example.themaplreable.model.enums.Type;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +17,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     /**
      * Get one product by syrup type
      */
-    List<Product> findByType(String type);
+    List<Product> findByType(Type type);
 
 }

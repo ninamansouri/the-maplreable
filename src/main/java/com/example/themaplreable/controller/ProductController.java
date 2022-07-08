@@ -1,6 +1,7 @@
 package com.example.themaplreable.controller;
 
 import com.example.themaplreable.dto.ProductDto;
+import com.example.themaplreable.exception.TypeNotExistException;
 import com.example.themaplreable.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +12,7 @@ import java.util.List;
  * Products Controller.
  */
 @RestController()
-@RequestMapping("/products")
+@RequestMapping("/product")
 public class ProductController {
     private final ProductService productsService;
 
@@ -30,8 +31,8 @@ public class ProductController {
      * @param type type
      * @return List<ProductDto>
      */
-    @GetMapping("/all/{type}")
-    public List<ProductDto> getCatalogue(@PathVariable("type") String type) {
+    @GetMapping(value = {"/all", "/all/{type}"})
+    public List<ProductDto> getCatalogue(@PathVariable(name="type", required = false) String type) {
         return productsService.getCatalogue(type);
     }
 
@@ -39,7 +40,7 @@ public class ProductController {
      * Get one product by productId
      *
      * @param productId productId
-     * @return MapleSyrupDto
+     * @return ProductDto
      */
     @GetMapping("/{productId}")
     public ProductDto getProductInfo(@PathVariable("productId") Long productId) {

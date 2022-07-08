@@ -14,8 +14,8 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@Entity
+@Table(name = "order_line")
 public class OrderLine {
 
     @Id
