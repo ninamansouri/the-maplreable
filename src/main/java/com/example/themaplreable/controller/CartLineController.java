@@ -1,27 +1,26 @@
 package com.example.themaplreable.controller;
 
 import com.example.themaplreable.dto.CartLineDto;
-import com.example.themaplreable.dto.ProductDto;
 import com.example.themaplreable.exception.CartLineNotFoundException;
 import com.example.themaplreable.exception.EndOfStockException;
 import com.example.themaplreable.exception.ProductNotFoundException;
-import com.example.themaplreable.model.CartLine;
 import com.example.themaplreable.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
  * Cart Controller.
  */
 @RestController()
-@RequestMapping("/cart")
+@RequestMapping(
+        value = "/cart",
+        produces = "application/json",
+        method = {RequestMethod.GET, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.PATCH})
 public class CartLineController {
 
     CartService cartService;

@@ -12,7 +12,10 @@ import java.util.List;
  * Order Controller.
  */
 @RestController()
-@RequestMapping("/order")
+@RequestMapping(
+        value = "/order",
+        produces = "application/json",
+        method = {RequestMethod.GET, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.PATCH})
 public class OrderLineController {
 
     /**

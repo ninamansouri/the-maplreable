@@ -14,7 +14,10 @@ import java.util.List;
  * Products Controller.
  */
 @RestController()
-@RequestMapping("/product")
+@RequestMapping(
+        value = "/product",
+        produces = "application/json",
+        method = {RequestMethod.GET, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.PATCH})
 public class ProductController {
     private final ProductService productsService;
 
