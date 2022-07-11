@@ -5,7 +5,7 @@ package com.example.themaplreable.exception;
  */
 public class TypeNotExistException extends Exception{
 
-    public TypeNotExistException(Exception e){
-        super("This syrup type don't exist : ", e);
+    public TypeNotExistException(String type){
+        super("The type " + type + " don't exist !");
     }
 }

@@ -3,6 +3,9 @@ package com.example.themaplreable.service;
 
 import com.example.themaplreable.converters.ProductConverter;
 import com.example.themaplreable.dto.ProductDto;
+import com.example.themaplreable.exception.ProductNotFoundException;
+import com.example.themaplreable.exception.TypeNotExistException;
+import com.example.themaplreable.model.Product;
 import com.example.themaplreable.model.enums.Type;
 import com.example.themaplreable.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +40,14 @@ public class ProductServiceImpl implements ProductService {
      * @return List<ProductDto>
      */
     @Override
-    public List<ProductDto> getCatalogue(String type) {
+    public List<ProductDto> getCatalogue(String type) throws TypeNotExistException {
         List<ProductDto> productDtos = new ArrayList<>();
         if (type == null) {
             productDtos.addAll(ProductConverter.entitiesToDtos(this.productRepository.findAll()));
         } else {
+            if(asMyEnum(type) == null) {
+                throw new TypeNotExistException(type);
+            }
             Type typeEnum = Type.valueOf(type);
             productDtos.addAll(ProductConverter.entitiesToDtos(this.productRepository.findByType(typeEnum)));
         }
@@ -55,7 +61,26 @@ public class ProductServiceImpl implements ProductService {
      * @return ProductDto
      */
     @Override
-    public ProductDto getProductInfo(Long productId) {
-        return ProductConverter.entityToDto(this.productRepository.findById(productId).orElse(null));
+    public ProductDto getProductInfo(Long productId) throws ProductNotFoundException {
+        Product product = this.productRepository.findById(productId).orElse(null);
+        if(product == null) {
+            throw new ProductNotFoundException(productId);
+        }
+        
+        return ProductConverter.entityToDto(product);
+    }
+
+    /**
+     * Check if the string exist into the enum
+     *
+     * @param typeSelected typeSelected
+     * @return Type
+     */
+    private static Type asMyEnum(String typeSelected) {
+        for (Type typeEnum : Type.values()) {
+            if (typeEnum.name().equalsIgnoreCase(typeSelected))
+                return typeEnum;
+        }
+        return null;
     }
 }
