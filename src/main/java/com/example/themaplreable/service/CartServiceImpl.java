@@ -50,11 +50,11 @@ public class CartServiceImpl implements CartService {
      * Add a product to cart (with a productId)
      *
      * @param productId productId
+     *                  qty
      * @return Response
      */
     @Override
-    public CartLineDto addToCart(Long productId) throws ProductNotFoundException, EndOfStockException {
-        var qty = 3L;
+    public CartLineDto addToCart(Long productId, Long qty) throws ProductNotFoundException, EndOfStockException {
         var newCartLine = new CartLine();
         var product = this.productRepository.findById(productId).orElse(null);
         if (product == null) {
@@ -68,6 +68,7 @@ public class CartServiceImpl implements CartService {
         }
 
         // Set data of the new line
+        newCartLine.setId(null);
         newCartLine.setName(product.getName());
         newCartLine.setImage(product.getImage());
         newCartLine.setPrice(product.getPrice() * qty);
@@ -78,8 +79,8 @@ public class CartServiceImpl implements CartService {
         product.setStock(newStock);
 
         // save changes
-        productRepository.save(product);
-        cartLineRepository.save(newCartLine);
+        this.productRepository.save(product);
+        this.cartLineRepository.save(newCartLine);
         return CartLineConverter.entityToDto(newCartLine);
 
     }
@@ -95,7 +96,12 @@ public class CartServiceImpl implements CartService {
         if (cartLine == null) {
             return false;
         } else {
-            cartLineRepository.delete(cartLine);
+            this.cartLineRepository.delete(cartLine);
+
+            // update product datas
+            Product productOfLine = cartLine.getProductId();
+            productOfLine.setStock(productOfLine.getStock() + cartLine.getQty());
+            this.productRepository.save(productOfLine);
             return true;
         }
     }
@@ -126,8 +132,8 @@ public class CartServiceImpl implements CartService {
         cartLine.setQty(newQty);
 
         // save changes
-        productRepository.save(productOfLine);
-        cartLineRepository.save(cartLine);
+        this.productRepository.save(productOfLine);
+        this.cartLineRepository.save(cartLine);
         return CartLineConverter.entityToDto(cartLine);
     }
 

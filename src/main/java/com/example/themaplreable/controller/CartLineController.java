@@ -49,9 +49,9 @@ public class CartLineController {
      * @param productId productId
      * @return Response
      */
-    @PutMapping("/add/{productId}")
-    public ResponseEntity<CartLineDto> addToCart(@PathVariable Long productId) throws ProductNotFoundException, EndOfStockException {
-        return ResponseEntity.ok(this.cartService.addToCart(productId));
+    @PutMapping("/add/{productId}/{qty}")
+    public ResponseEntity<CartLineDto> addToCart(@PathVariable Long productId, @PathVariable Long qty) throws ProductNotFoundException, EndOfStockException {
+        return ResponseEntity.ok(this.cartService.addToCart(productId, qty));
     }
 
     /**
@@ -61,12 +61,12 @@ public class CartLineController {
      * @return Response
      */
     @DeleteMapping("/remove/{productId}")
-    public ResponseEntity<Long> removeFromCart(@PathVariable Long productId) {
+    public ResponseEntity<String> removeFromCart(@PathVariable Long productId) throws CartLineNotFoundException {
         var isRemoved = this.cartService.removeFromCart(productId);
         if (!isRemoved) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new CartLineNotFoundException();
         }
-        return new ResponseEntity<>(productId, HttpStatus.OK);
+        return new ResponseEntity<>("The product " + productId + " is remove successfully", HttpStatus.OK);
     }
 
     /**

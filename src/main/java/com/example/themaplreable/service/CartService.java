@@ -22,7 +22,7 @@ public interface CartService {
     /**
      * Add a product to cart (with a productId)
      */
-    CartLineDto addToCart(Long productId) throws ProductNotFoundException, EndOfStockException;
+    CartLineDto addToCart(Long productId, Long qty) throws ProductNotFoundException, EndOfStockException;
 
     /**
      * Remove a product from cart (with a productId)
