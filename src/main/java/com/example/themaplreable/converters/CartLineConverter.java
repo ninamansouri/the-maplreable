@@ -3,6 +3,9 @@ package com.example.themaplreable.converters;
 import com.example.themaplreable.dto.CartLineDto;
 import com.example.themaplreable.model.CartLine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Cart Line Converter.
@@ -35,5 +38,18 @@ public class CartLineConverter {
         }
 
         return carteLine;
+    }
+
+    /**
+     * Convert List<CartLine> to List<CartLineDto>.
+     */
+    public static List<CartLineDto> entitiesToDtos(List<CartLine> carteLines) {
+        List<CartLineDto> carteLinesDto = new ArrayList<>();
+
+        for (CartLine carteLine : carteLines) {
+            carteLinesDto.add(entityToDto(carteLine));
+        }
+
+        return carteLinesDto;
     }
 }

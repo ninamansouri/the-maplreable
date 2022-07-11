@@ -1,32 +1,28 @@
 package com.example.themaplreable.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 /**
  * Order Line DTO.
  */
-@Getter
-@Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Data
 @Entity
-@Table(name = "order_line")
+@Table(name = "ORDER_LINE")
 public class OrderLine {
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "qty", nullable = false)
+    @Column(name = "QTY", nullable = false)
     private Long qty;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="product_id")
+    @JoinColumn(name="PRODUCT_ID")
     private Product productId;
 }

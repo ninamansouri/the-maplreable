@@ -2,7 +2,10 @@ package com.example.themaplreable.service;
 
 
 import com.example.themaplreable.dto.CartLineDto;
-import org.apache.catalina.connector.Response;
+import com.example.themaplreable.exception.CartLineNotFoundException;
+import com.example.themaplreable.exception.EndOfStockException;
+import com.example.themaplreable.exception.ProductNotFoundException;
+import com.example.themaplreable.model.CartLine;
 
 import java.util.List;
 
@@ -19,15 +22,15 @@ public interface CartService {
     /**
      * Add a product to cart (with a productId)
      */
-    Response addToCart(String productId);
+    CartLineDto addToCart(Long productId) throws ProductNotFoundException, EndOfStockException;
 
     /**
      * Remove a product from cart (with a productId)
      */
-    Response removeFromCart(String productId);
+    boolean removeFromCart(Long productId);
 
     /**
-     * Remove a product from cart (with a productId)
+     * Change the quantity of one product in cart
      */
-    Response changeQty(String productId, Long newQty);
+    CartLineDto changeQty(Long cartId, Long newQty) throws CartLineNotFoundException;
 }

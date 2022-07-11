@@ -48,7 +48,7 @@ public class ProductServiceImpl implements ProductService {
             if(asMyEnum(type) == null) {
                 throw new TypeNotExistException(type);
             }
-            Type typeEnum = Type.valueOf(type);
+            var typeEnum = Type.valueOf(type);
             productDtos.addAll(ProductConverter.entitiesToDtos(this.productRepository.findByType(typeEnum)));
         }
         return productDtos;
@@ -62,7 +62,7 @@ public class ProductServiceImpl implements ProductService {
      */
     @Override
     public ProductDto getProductInfo(Long productId) throws ProductNotFoundException {
-        Product product = this.productRepository.findById(productId).orElse(null);
+        var product = this.productRepository.findById(productId).orElse(null);
         if(product == null) {
             throw new ProductNotFoundException(productId);
         }

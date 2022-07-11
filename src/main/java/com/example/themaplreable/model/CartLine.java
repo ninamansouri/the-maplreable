@@ -1,38 +1,37 @@
 package com.example.themaplreable.model;
 
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import javax.persistence.*;
 
 /**
  * Cart Line Entity.
  */
-@Getter
-@Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Data
 @Entity
-@Table(name = "cart_line")
+@Table(name = "CART_LINE")
 public class CartLine {
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column (name = "name", nullable = false)
+    @Column (name = "NAME", nullable = false)
     private String name;
 
-    @Column (name = "image", nullable = false)
+    @Column (name = "IMAGE", nullable = false)
     private String image;
 
-    @Column (name = "price", nullable = false)
+    @Column (name = "PRICE", nullable = false)
     private Double price;
 
-    @Column(name = "qty", nullable = false)
+    @Column(name = "QTY", nullable = false)
     private Long qty;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="product_id")
+    @JoinColumn(name="PRODUCT_ID")
     private Product productId;
 }

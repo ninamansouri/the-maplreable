@@ -1,8 +1,16 @@
 package com.example.themaplreable.service;
 
 
+import com.example.themaplreable.converters.CartLineConverter;
 import com.example.themaplreable.dto.CartLineDto;
-import org.apache.catalina.connector.Response;
+import com.example.themaplreable.exception.CartLineNotFoundException;
+import com.example.themaplreable.exception.EndOfStockException;
+import com.example.themaplreable.exception.ProductNotFoundException;
+import com.example.themaplreable.model.CartLine;
+import com.example.themaplreable.model.Product;
+import com.example.themaplreable.repositories.CartLineRepository;
+import com.example.themaplreable.repositories.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -15,6 +23,19 @@ import java.util.List;
 @Transactional
 public class CartServiceImpl implements CartService {
 
+    CartLineRepository cartLineRepository;
+
+    ProductRepository productRepository;
+
+    /**
+     * Constructor
+     */
+    @Autowired
+    public CartServiceImpl(CartLineRepository cartLineRepository, ProductRepository productRepository) {
+        this.cartLineRepository = cartLineRepository;
+        this.productRepository = productRepository;
+    }
+
     /**
      * Get all cart lines
      *
@@ -22,7 +43,7 @@ public class CartServiceImpl implements CartService {
      */
     @Override
     public List<CartLineDto> getCart() {
-        return null;
+        return CartLineConverter.entitiesToDtos(this.cartLineRepository.findAll());
     }
 
     /**
@@ -32,31 +53,82 @@ public class CartServiceImpl implements CartService {
      * @return Response
      */
     @Override
-    public Response addToCart(String productId) {
-        return null;
+    public CartLineDto addToCart(Long productId) throws ProductNotFoundException, EndOfStockException {
+        var qty = 3L;
+        var newCartLine = new CartLine();
+        var product = this.productRepository.findById(productId).orElse(null);
+        if (product == null) {
+            throw new ProductNotFoundException(productId);
+        }
+
+        // Check if there is enough product
+        var newStock = product.getStock() - qty;
+        if (newStock < 0) {
+            throw new EndOfStockException(product.getName());
+        }
+
+        // Set data of the new line
+        newCartLine.setName(product.getName());
+        newCartLine.setImage(product.getImage());
+        newCartLine.setPrice(product.getPrice() * qty);
+        newCartLine.setQty(qty);
+        newCartLine.setProductId(product);
+
+        // update the product stock
+        product.setStock(newStock);
+
+        // save changes
+        productRepository.save(product);
+        cartLineRepository.save(newCartLine);
+        return CartLineConverter.entityToDto(newCartLine);
+
     }
 
     /**
      * Remove a product from cart (with a productId)
      *
      * @param productId productId
-     * @return Response
      */
     @Override
-    public Response removeFromCart(String productId) {
-        return null;
+    public boolean removeFromCart(Long productId) {
+        var cartLine = this.cartLineRepository.findByProductId(productId);
+        if (cartLine == null) {
+            return false;
+        } else {
+            cartLineRepository.delete(cartLine);
+            return true;
+        }
     }
 
     /**
-     * Remove a product from cart (with a productId)
+     * Change the quantity of one product in cart
      *
-     * @param productId productId
-     *                  newQty
+     * @param cartId cartId
+     *               newQty
      * @return MapleSyrupDto
      */
     @Override
-    public Response changeQty(String productId, Long newQty) {
-        return null;
+    public CartLineDto changeQty(Long cartId, Long newQty) throws CartLineNotFoundException {
+        var newCartPrice = 0.00;
+        var cartLine = this.cartLineRepository.findById(cartId).orElse(null);
+        if (cartLine == null) {
+            throw new CartLineNotFoundException();
+        }
+
+        // Update product stock
+        Product productOfLine = cartLine.getProductId();
+        var updatedStock = (productOfLine.getStock() + cartLine.getQty()) - newQty;
+        productOfLine.setStock(updatedStock);
+
+        // Calcul the new line price
+        newCartPrice = cartLine.getProductId().getPrice() * newQty;
+        cartLine.setPrice(newCartPrice);
+        cartLine.setQty(newQty);
+
+        // save changes
+        productRepository.save(productOfLine);
+        cartLineRepository.save(cartLine);
+        return CartLineConverter.entityToDto(cartLine);
     }
 
 }
