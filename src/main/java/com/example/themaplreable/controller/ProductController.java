@@ -1,13 +1,13 @@
 package com.example.themaplreable.controller;
 
-import com.example.themaplreable.dto.CartLineDto;
 import com.example.themaplreable.dto.ProductDto;
-import com.example.themaplreable.exception.EndOfStockException;
 import com.example.themaplreable.exception.ProductNotFoundException;
 import com.example.themaplreable.exception.TypeNotExistException;
 import com.example.themaplreable.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Products Controller.
  */
-@RestController()
+@Controller()
 @RequestMapping(
         value = "/product",
         produces = "application/json",
@@ -39,8 +39,10 @@ public class ProductController {
      * @return List<ProductDto>
      */
     @GetMapping(value = {"/all", "/all/{type}"})
-    public ResponseEntity<List<ProductDto>> getCatalogue(@PathVariable(name="type", required = false) String type) throws TypeNotExistException {
-        return ResponseEntity.ok().body(productsService.getCatalogue(type));
+    public String getCatalogue(@PathVariable(name="type", required = false) String type, Model model) throws TypeNotExistException {
+        List<ProductDto> productList = productsService.getCatalogue(type);
+        model.addAttribute("productList", productList);
+        return "maplrErableHome.html";
     }
 
     /**

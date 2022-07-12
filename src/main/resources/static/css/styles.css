@@ -1,0 +1,58 @@
+body {
+    font-family: 'Lato', Helvetica, Arial, Lucida, sans-serif;
+}
+
+header {
+    padding: 25px;
+    background: #223f5d;
+    color: white;
+    font-size: 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 25px 10px 10px;
+    background: #dcdcdc;
+}
+
+.big_title {
+    margin-left: 140px;
+}
+
+.small_title {
+    text-align: center
+}
+
+.title-style {
+    font-weight: bold;
+}
+
+.maplr_size {
+    width: 150px;
+    height:60px;
+}
+
+.global-container {
+    padding: 30px;
+}
+
+.intro {
+    font-style: italic;
+}
+
+.table-style {
+    width: 70% !important;
+    margin: 20px
+}
+
+
+.table-button {
+    background-color: #f10505; /* Green */
+    border: 2px solid #223f5d;
+    color: white;
+}
+
+.flag_size {
+    width: 30px;
+    height: 15px;
+}
