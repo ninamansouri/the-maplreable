@@ -1,6 +1,8 @@
 package com.example.themaplreable.controller;
 
+import com.example.themaplreable.dto.CartLineDto;
 import com.example.themaplreable.dto.ProductDto;
+import com.example.themaplreable.exception.EndOfStockException;
 import com.example.themaplreable.exception.ProductNotFoundException;
 import com.example.themaplreable.exception.TypeNotExistException;
 import com.example.themaplreable.service.ProductService;
@@ -50,5 +52,15 @@ public class ProductController {
     @GetMapping("/{productId}")
     public ResponseEntity<ProductDto> getProductInfo(@PathVariable Long productId) throws ProductNotFoundException {
         return ResponseEntity.ok().body(productsService.getProductInfo(productId));
+    }
+
+    /**
+     * Add a product
+     *
+     * @return Response
+     */
+    @PutMapping("/add")
+    public ResponseEntity<ProductDto> addToCart() {
+        return ResponseEntity.ok(this.productsService.addProduct());
     }
 }

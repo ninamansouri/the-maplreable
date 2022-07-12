@@ -21,4 +21,9 @@ public interface ProductService {
      * Get one product by productId
      */
     ProductDto getProductInfo(Long productId) throws ProductNotFoundException;
+
+    /**
+     * Add a product
+     */
+    ProductDto addProduct();
 }

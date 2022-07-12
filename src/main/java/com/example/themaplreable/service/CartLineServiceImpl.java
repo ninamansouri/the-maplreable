@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class CartServiceImpl implements CartService {
+public class CartLineServiceImpl implements CartLineService {
 
     CartLineRepository cartLineRepository;
 
@@ -31,7 +31,7 @@ public class CartServiceImpl implements CartService {
      * Constructor
      */
     @Autowired
-    public CartServiceImpl(CartLineRepository cartLineRepository, ProductRepository productRepository) {
+    public CartLineServiceImpl(CartLineRepository cartLineRepository, ProductRepository productRepository) {
         this.cartLineRepository = cartLineRepository;
         this.productRepository = productRepository;
     }
@@ -42,7 +42,7 @@ public class CartServiceImpl implements CartService {
      * @return List<CartLineDto>
      */
     @Override
-    public List<CartLineDto> getCart() {
+    public List<CartLineDto> getCartLines() {
         return CartLineConverter.entitiesToDtos(this.cartLineRepository.findAll());
     }
 
@@ -68,7 +68,7 @@ public class CartServiceImpl implements CartService {
         }
 
         // Set data of the new line
-        newCartLine.setId(null);
+        newCartLine.setId(7L);
         newCartLine.setName(product.getName());
         newCartLine.setImage(product.getImage());
         newCartLine.setPrice(product.getPrice() * qty);
@@ -82,7 +82,6 @@ public class CartServiceImpl implements CartService {
         this.productRepository.save(product);
         this.cartLineRepository.save(newCartLine);
         return CartLineConverter.entityToDto(newCartLine);
-
     }
 
     /**

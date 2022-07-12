@@ -1,10 +1,13 @@
 package com.example.themaplreable.service;
 
 
+import com.example.themaplreable.converters.CartLineConverter;
 import com.example.themaplreable.converters.ProductConverter;
 import com.example.themaplreable.dto.ProductDto;
+import com.example.themaplreable.exception.EndOfStockException;
 import com.example.themaplreable.exception.ProductNotFoundException;
 import com.example.themaplreable.exception.TypeNotExistException;
+import com.example.themaplreable.model.CartLine;
 import com.example.themaplreable.model.Product;
 import com.example.themaplreable.model.enums.Type;
 import com.example.themaplreable.repositories.ProductRepository;
@@ -71,6 +74,28 @@ public class ProductServiceImpl implements ProductService {
     }
 
     /**
+     * Get one product by productId
+     *
+     * @return ProductDto
+     */
+    @Override
+    public ProductDto addProduct() {
+        var product = new Product();
+
+        // Set data of the new line
+        product.setName("test");
+        product.setImage("test");
+        product.setPrice(1.00);
+        product.setDescription("test");
+        product.setStock(1L);
+        product.setType(Type.amber);
+
+        // save changes
+        this.productRepository.save(product);
+        return ProductConverter.entityToDto(product);
+    }
+
+    /**
      * Check if the string exist into the enum
      *
      * @param typeSelected typeSelected
@@ -83,4 +108,6 @@ public class ProductServiceImpl implements ProductService {
         }
         return null;
     }
+
+
 }

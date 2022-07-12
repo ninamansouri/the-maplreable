@@ -6,6 +6,6 @@ package com.example.themaplreable.exception;
 public class EndOfStockException extends Exception{
 
     public EndOfStockException(String productName){
-        super("The product " + productName + "is not available !");
+        super("The product " + productName + " is not available !");
     }
 }

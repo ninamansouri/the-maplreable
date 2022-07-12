@@ -5,19 +5,18 @@ import com.example.themaplreable.dto.CartLineDto;
 import com.example.themaplreable.exception.CartLineNotFoundException;
 import com.example.themaplreable.exception.EndOfStockException;
 import com.example.themaplreable.exception.ProductNotFoundException;
-import com.example.themaplreable.model.CartLine;
 
 import java.util.List;
 
 /**
  * Service interface for the Cart.
  */
-public interface CartService {
+public interface CartLineService {
 
     /**
      * Get all cart lines
      */
-    List<CartLineDto> getCart();
+    List<CartLineDto> getCartLines();
 
     /**
      * Add a product to cart (with a productId)

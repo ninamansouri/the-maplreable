@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 /**
- * Order Line DTO.
+ * Order Line Entity.
  */
 @NoArgsConstructor
 @AllArgsConstructor

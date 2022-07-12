@@ -4,7 +4,7 @@ import com.example.themaplreable.dto.CartLineDto;
 import com.example.themaplreable.exception.CartLineNotFoundException;
 import com.example.themaplreable.exception.EndOfStockException;
 import com.example.themaplreable.exception.ProductNotFoundException;
-import com.example.themaplreable.service.CartService;
+import com.example.themaplreable.service.CartLineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,18 +18,18 @@ import java.util.List;
  */
 @RestController()
 @RequestMapping(
-        value = "/cart",
+        value = "/cartLine",
         produces = "application/json",
         method = {RequestMethod.GET, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.PATCH})
 public class CartLineController {
 
-    CartService cartService;
+    CartLineService cartService;
 
     /**
      * Constructor
      */
     @Autowired
-    public CartLineController(CartService cartService) {
+    public CartLineController(CartLineService cartService) {
         this.cartService = cartService;
     }
 
@@ -39,8 +39,8 @@ public class CartLineController {
      * @return List<CartLineDto>
      */
     @GetMapping("/all")
-    public ResponseEntity<List<CartLineDto>> getCart() {
-        return ResponseEntity.ok().body(this.cartService.getCart());
+    public ResponseEntity<List<CartLineDto>> getCartLines() {
+        return ResponseEntity.ok().body(this.cartService.getCartLines());
     }
 
     /**
