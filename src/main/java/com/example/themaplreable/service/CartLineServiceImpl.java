@@ -68,7 +68,7 @@ public class CartLineServiceImpl implements CartLineService {
         }
 
         // Set data of the new line
-        newCartLine.setId(7L);
+       // newCartLine.setId(7L);
         newCartLine.setName(product.getName());
         newCartLine.setImage(product.getImage());
         newCartLine.setPrice(product.getPrice() * qty);

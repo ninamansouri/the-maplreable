@@ -21,7 +21,7 @@ import java.util.List;
         value = "/cartLine",
         produces = "application/json",
         method = {RequestMethod.GET, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.PATCH})
-public class CartLineController {
+public class CartController {
 
     CartLineService cartService;
 
@@ -29,7 +29,7 @@ public class CartLineController {
      * Constructor
      */
     @Autowired
-    public CartLineController(CartLineService cartService) {
+    public CartController(CartLineService cartService) {
         this.cartService = cartService;
     }
 

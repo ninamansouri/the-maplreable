@@ -1,6 +1,5 @@
 package com.example.themaplreable.controller;
 
-import com.example.themaplreable.dto.CartLineDto;
 import com.example.themaplreable.dto.OrderLineDto;
 import com.example.themaplreable.dto.OrderValidationResponseDto;
 import com.example.themaplreable.service.OrderLineService;
@@ -19,7 +18,7 @@ import java.util.List;
         value = "/orderLine",
         produces = "application/json",
         method = {RequestMethod.GET, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.PATCH})
-public class OrderLineController {
+public class OrderController {
 
     OrderLineService orderService;
 
@@ -27,7 +26,7 @@ public class OrderLineController {
      * Constructor
      */
     @Autowired
-    public OrderLineController(OrderLineService orderService) {
+    public OrderController(OrderLineService orderService) {
         this.orderService = orderService;
     }
 
