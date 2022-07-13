@@ -36,7 +36,7 @@ public class OrderController {
      * @return List<OrderLineDto>
      */
     @GetMapping("/all")
-    public ResponseEntity<List<OrderLineDto>> getCart() {
+    public ResponseEntity<List<OrderLineDto>> getOrder() {
         return ResponseEntity.ok().body(this.orderService.getOrderLines());
     }
 

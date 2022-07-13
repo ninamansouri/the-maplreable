@@ -55,14 +55,4 @@ public class ProductController {
     public ResponseEntity<ProductDto> getProductInfo(@PathVariable Long productId) throws ProductNotFoundException {
         return ResponseEntity.ok().body(productsService.getProductInfo(productId));
     }
-
-    /**
-     * Add a product
-     *
-     * @return Response
-     */
-    @PutMapping("/add")
-    public ResponseEntity<ProductDto> addToCart() {
-        return ResponseEntity.ok(this.productsService.addProduct());
-    }
 }

@@ -74,28 +74,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     /**
-     * Get one product by productId
-     *
-     * @return ProductDto
-     */
-    @Override
-    public ProductDto addProduct() {
-        var product = new Product();
-
-        // Set data of the new line
-        product.setName("test");
-        product.setImage("test");
-        product.setPrice(1.00);
-        product.setDescription("test");
-        product.setStock(1L);
-        product.setType(Type.amber);
-
-        // save changes
-        this.productRepository.save(product);
-        return ProductConverter.entityToDto(product);
-    }
-
-    /**
      * Check if the string exist into the enum
      *
      * @param typeSelected typeSelected
