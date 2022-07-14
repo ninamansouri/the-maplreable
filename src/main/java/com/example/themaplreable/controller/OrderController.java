@@ -16,18 +16,13 @@ import java.util.List;
 /**
  * Order Controller.
  */
-@Controller()
-@RequestMapping(
-        value = "/orderLine",
-        produces = "application/json",
-        method = {RequestMethod.GET, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.PATCH})
+@Controller
+@RequestMapping("/order")
 public class OrderController {
 
     OrderLineService orderService;
 
-    /**
-     * Constructor
-     */
+
     @Autowired
     public OrderController(OrderLineService orderService) {
         this.orderService = orderService;
@@ -36,7 +31,7 @@ public class OrderController {
     /**
      * Get all order lines
      *
-     * @return List<OrderLineDto>
+     * @return ResponseEntity<List<OrderLineDto>>
      */
     @GetMapping("/all")
     public ResponseEntity<List<OrderLineDto>> getOrder() {
@@ -46,12 +41,14 @@ public class OrderController {
     /**
      * Validate the the cart to become a real order
      *
-     * @return OrderValidationResponseDto
+     * @return ResponseEntity<OrderValidationResponseDto>
      */
-    @PostMapping("/validate")
-    public String placeOrder(Model model) throws ProductNotFoundException {
-        OrderValidationResponseDto orderValidation = this.orderService.placeOrder();
+    @PostMapping("/")
+    public ResponseEntity<OrderValidationResponseDto> placeOrder(Model model) throws ProductNotFoundException {
+       /* OrderValidationResponseDto orderValidation = this.orderService.placeOrder();
         model.addAttribute("orderValidation", orderValidation);
-        return "orderValidate";
+        return "orderValidate";*/
+
+        return ResponseEntity.ok().body(this.orderService.placeOrder());
     }
 }

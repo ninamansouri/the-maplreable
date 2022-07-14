@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Maple Syrup Converter.
  */
-public class ProductConverter {
+public class ProductsConverter {
 
     /**
      * Convert Product to ProductDto.

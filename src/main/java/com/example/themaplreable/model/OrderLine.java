@@ -21,7 +21,4 @@ public class OrderLine {
     @Column(name = "QTY", nullable = false)
     private Long qty;
 
- /*   @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="PRODUCT_ID")
-    private Product productId;*/
 }

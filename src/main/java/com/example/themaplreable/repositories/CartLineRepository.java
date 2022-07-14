@@ -4,6 +4,8 @@ import com.example.themaplreable.model.CartLine;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 
 /**
  * Repository for the CartLine entity.
@@ -14,5 +16,5 @@ public interface CartLineRepository extends JpaRepository<CartLine, Long> {
     /**
      * Find cart line by productId
      */
-    CartLine findByProductId(String productId);
+    Optional<CartLine> findByProductId(String productId);
 }

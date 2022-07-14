@@ -27,6 +27,16 @@ footer {
     font-weight: bold;
 }
 
+.error-style {
+    color: #fa0505;
+    font-weight: bold;
+}
+
+.empty-style {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
 .maplr_size {
     width: 150px;
     height: 60px;
@@ -52,8 +62,12 @@ footer {
 }
 
 .table-style {
-    width: 70% !important;
+    width: 95% !important;
     margin: 20px
+}
+
+.form-style {
+    width: 70% !important;
 }
 
 

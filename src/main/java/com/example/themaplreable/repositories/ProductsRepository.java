@@ -7,17 +7,18 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Repository for the MapleSyrup entity.
  */
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Long> {
+public interface ProductsRepository extends JpaRepository<Product, Long> {
 
     /**
      * Get one product by id
      */
-    Product findById(String productId);
+    Optional<Product> findById(String productId);
 
     /**
      * Get products by syrup type

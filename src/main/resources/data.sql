@@ -10,5 +10,5 @@ VALUES (1, 'Sirop1', 'Sirop érable numero 1', 'Image1', 1.50, 11, 'amber'),
 
 -- CART LINE
 INSERT INTO CART_LINE (PRODUCT_ID, NAME, IMAGE, PRICE, QTY)
-VALUES (1, 'Sirop1', 'Image1', 1.50, 90),
-       (2, 'Sirop2', 'Image2', 5, 90);
+VALUES (1, 'Sirop1', 'Image1', 1.50, 1),
+       (2, 'Sirop2', 'Image2', 5, 2);

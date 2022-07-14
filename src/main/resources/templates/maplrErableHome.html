@@ -41,42 +41,65 @@
     </div>
 
     <div class="row">
-        <table class="table table-style">
-            <thead class="thead-light">
-            <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Name</th>
-                <th scope="col">Description</th>
-                <th scope="col">Image</th>
-                <th scope="col">Price</th>
-                <th scope="col">Stock</th>
-                <th scope="col">Type</th>
-                <th scope="col">Add</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="product : ${productList}">
-                <td><span th:text="${product.id}"></span></td>
-                <td><span th:text="${product.name}"></span></td>
-                <td><span th:text="${product.description}"></span></td>
-                <td><span th:text="${product.image}"></span></td>
-                <td><span th:text="${product.price}"></span></td>
-                <td><span th:text="${product.stock}"></span></td>
-                <td><span th:text="${product.type}"></span></td>
-                <td><button type="button" class="button table-button">+</button></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
 
-<footer>
-    <p>
-        <img src="/img/canada_flag.png" alt="Canada flag" class="flag_size">
-        - Design by Nina MANSOURI -
-        <a href="nina.mansouri@maplr.co">nina.mansouri@maplr.co</a>
-    </p>
-</footer>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <table class="table table-style">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Stock</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Add</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="product : ${productList}">
+                    <td><span th:text="${product.id}"></span></td>
+                    <td><span th:text="${product.name}"></span></td>
+                    <td><span th:text="${product.description}"></span></td>
+                    <td><span th:text="${product.image}"></span></td>
+                    <td><span th:text="${product.price}"></span></td>
+                    <td><span th:text="${product.stock}"></span></td>
+                    <td><span th:text="${product.type}"></span></td>
+                    <td>
+                        <button type="button" class="button table-button" onclick="location.href='/cartLine/add/4'">+
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-lg-4">
+            <form class="form-style">
+                <div class="form-group">
+                    <label for="productId">Id Product</label>
+                    <input type="text" class="form-control" id="productId" aria-describedby="emailHelp"
+                           placeholder="Enter Product Id">
+                </div>
+                <div class="form-group">
+                    <label for="syrupType">Syrup Type</label>
+                    <input type="text" class="form-control" id="syrupType" placeholder="Enter Syrup Type">
+                </div>
+                <button type="button" class="button global-button">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>
+            <img src="/img/canada_flag.png" alt="Canada flag" class="flag_size">
+            - Design by Nina MANSOURI -
+            <a href="nina.mansouri@maplr.co">nina.mansouri@maplr.co</a>
+        </p>
+    </footer>
 
 
 </body>

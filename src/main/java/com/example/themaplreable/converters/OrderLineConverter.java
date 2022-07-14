@@ -23,16 +23,6 @@ public class OrderLineConverter {
         return orderLineDto;
     }
 
-    public static OrderLine dtoToEntity(OrderLineDto orderLineDto) {
-        OrderLine orderLine = new OrderLine();
-        if (orderLineDto != null) {
-            orderLine.setProductId(orderLineDto.getProductId());
-            orderLine.setQty(orderLineDto.getQty());
-        }
-
-        return orderLine;
-    }
-
     public static List<OrderLineDto> entitiesToDtos(List<OrderLine> orderLines) {
         List<OrderLineDto> orderLinesDto = new ArrayList<>();
 

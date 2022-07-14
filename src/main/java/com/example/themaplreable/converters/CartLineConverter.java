@@ -50,4 +50,17 @@ public class CartLineConverter {
 
         return carteLinesDto;
     }
+
+    /**
+     * Convert List<CartLineDto> to List<CartLine>.
+     */
+    public static List<CartLine> dtosToEntites(List<CartLineDto> carteLinesDto) {
+        List<CartLine> carteLines = new ArrayList<>();
+
+        for (CartLineDto carteLineDto : carteLinesDto) {
+            carteLines.add(dtoToEntity(carteLineDto));
+        }
+
+        return carteLines;
+    }
 }
