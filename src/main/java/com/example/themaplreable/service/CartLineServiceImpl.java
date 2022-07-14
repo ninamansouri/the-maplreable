@@ -4,7 +4,6 @@ package com.example.themaplreable.service;
 import com.example.themaplreable.converters.CartLineConverter;
 import com.example.themaplreable.dto.CartLineDto;
 import com.example.themaplreable.exception.CartLineNotFoundException;
-import com.example.themaplreable.exception.EndOfStockException;
 import com.example.themaplreable.exception.ProductNotFoundException;
 import com.example.themaplreable.model.CartLine;
 import com.example.themaplreable.model.Product;
@@ -54,34 +53,31 @@ public class CartLineServiceImpl implements CartLineService {
      * @return Response
      */
     @Override
-    public CartLineDto addToCart(Long productId, Long qty) throws ProductNotFoundException, EndOfStockException {
+    public CartLineDto addToCart(String productId, Long qty) throws ProductNotFoundException {
         var newCartLine = new CartLine();
-        var product = this.productRepository.findById(productId).orElse(null);
+        var product = this.productRepository.findById(productId);
         if (product == null) {
             throw new ProductNotFoundException(productId);
         }
 
-        // Check if there is enough product
-        var newStock = product.getStock() - qty;
-        if (newStock < 0) {
-            throw new EndOfStockException(product.getName());
-        }
-
         // Set data of the new line
-       // newCartLine.setId(7L);
+        newCartLine.setProductId(productId);
         newCartLine.setName(product.getName());
         newCartLine.setImage(product.getImage());
         newCartLine.setPrice(product.getPrice() * qty);
         newCartLine.setQty(qty);
-        newCartLine.setProductId(product);
-
-        // update the product stock
-        product.setStock(newStock);
-
-        // save changes
-        this.productRepository.save(product);
         this.cartLineRepository.save(newCartLine);
+
         return CartLineConverter.entityToDto(newCartLine);
+    }
+
+    /**
+     * Remove all cart
+     */
+    @Override
+    public void removeAllCart() {
+        List<CartLine> cartLines = this.cartLineRepository.findAll();
+        this.cartLineRepository.deleteAll(cartLines);
     }
 
     /**
@@ -90,17 +86,12 @@ public class CartLineServiceImpl implements CartLineService {
      * @param productId productId
      */
     @Override
-    public boolean removeFromCart(Long productId) {
+    public boolean removeFromCart(String productId) {
         var cartLine = this.cartLineRepository.findByProductId(productId);
         if (cartLine == null) {
             return false;
         } else {
             this.cartLineRepository.delete(cartLine);
-
-            // update product datas
-            Product productOfLine = cartLine.getProductId();
-            productOfLine.setStock(productOfLine.getStock() + cartLine.getQty());
-            this.productRepository.save(productOfLine);
             return true;
         }
     }
@@ -108,31 +99,29 @@ public class CartLineServiceImpl implements CartLineService {
     /**
      * Change the quantity of one product in cart
      *
-     * @param cartId cartId
-     *               newQty
+     * @param productId productId
+     *                  newQty
      * @return MapleSyrupDto
      */
     @Override
-    public CartLineDto changeQty(Long cartId, Long newQty) throws CartLineNotFoundException {
+    public CartLineDto changeQty(String productId, Long newQty) throws CartLineNotFoundException, ProductNotFoundException {
         var newCartPrice = 0.00;
-        var cartLine = this.cartLineRepository.findById(cartId).orElse(null);
+        var cartLine = this.cartLineRepository.findByProductId(productId);
         if (cartLine == null) {
             throw new CartLineNotFoundException();
         }
 
-        // Update product stock
-        Product productOfLine = cartLine.getProductId();
-        var updatedStock = (productOfLine.getStock() + cartLine.getQty()) - newQty;
-        productOfLine.setStock(updatedStock);
+        var product = this.productRepository.findById(productId);
+        if (product == null) {
+            throw new ProductNotFoundException(productId);
+        }
 
         // Calcul the new line price
-        newCartPrice = cartLine.getProductId().getPrice() * newQty;
+        newCartPrice = product.getPrice() * newQty;
         cartLine.setPrice(newCartPrice);
         cartLine.setQty(newQty);
-
-        // save changes
-        this.productRepository.save(productOfLine);
         this.cartLineRepository.save(cartLine);
+
         return CartLineConverter.entityToDto(cartLine);
     }
 

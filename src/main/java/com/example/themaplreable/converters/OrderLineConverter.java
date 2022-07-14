@@ -16,9 +16,8 @@ public class OrderLineConverter {
     public static OrderLineDto entityToDto(OrderLine orderLine) {
         OrderLineDto orderLineDto = new OrderLineDto();
         if (orderLine != null) {
-            orderLineDto.setId(orderLine.getId());
+            orderLineDto.setProductId(orderLine.getProductId());
             orderLineDto.setQty(orderLine.getQty());
-            orderLineDto.setProductId(orderLine.getProductId().toString());
         }
 
         return orderLineDto;
@@ -27,9 +26,8 @@ public class OrderLineConverter {
     public static OrderLine dtoToEntity(OrderLineDto orderLineDto) {
         OrderLine orderLine = new OrderLine();
         if (orderLineDto != null) {
-            orderLine.setId(orderLineDto.getId());
+            orderLine.setProductId(orderLineDto.getProductId());
             orderLine.setQty(orderLineDto.getQty());
-            //orderLine.setProductId(orderLineDto.getProductId());
         }
 
         return orderLine;

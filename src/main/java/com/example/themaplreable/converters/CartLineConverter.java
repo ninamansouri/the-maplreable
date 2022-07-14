@@ -15,12 +15,11 @@ public class CartLineConverter {
     public static CartLineDto entityToDto(CartLine carteLine) {
         CartLineDto carteLineDto = new CartLineDto();
         if (carteLine != null) {
-            carteLineDto.setId(carteLine.getId());
+            carteLineDto.setProductId(carteLine.getProductId());
             carteLineDto.setName(carteLine.getName());
             carteLineDto.setImage(carteLine.getImage());
             carteLineDto.setPrice(carteLine.getPrice());
             carteLineDto.setQty(carteLine.getQty());
-            carteLineDto.setProductId(carteLine.getProductId().toString());
         }
 
         return carteLineDto;
@@ -29,12 +28,11 @@ public class CartLineConverter {
     public static CartLine dtoToEntity(CartLineDto carteLineDto) {
         CartLine carteLine = new CartLine();
         if (carteLineDto != null) {
-            carteLine.setId(carteLineDto.getId());
+            carteLine.setProductId(carteLineDto.getProductId());
             carteLine.setName(carteLineDto.getName());
             carteLine.setImage(carteLineDto.getImage());
             carteLine.setPrice(carteLineDto.getPrice());
             carteLine.setQty(carteLineDto.getQty());
-            //carteLine.setProductId(Long.valueOf(carteLineDto.getProductId()));
         }
 
         return carteLine;

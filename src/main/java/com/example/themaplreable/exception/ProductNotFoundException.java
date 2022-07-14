@@ -5,7 +5,7 @@ package com.example.themaplreable.exception;
  */
 public class ProductNotFoundException extends Exception{
 
-    public ProductNotFoundException(Long productId){
+    public ProductNotFoundException(String productId){
         super("The product " + productId +" don't exist !");
     }
 }

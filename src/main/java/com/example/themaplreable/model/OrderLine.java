@@ -15,14 +15,13 @@ import javax.persistence.*;
 public class OrderLine {
 
     @Id
-    @Column(name = "ID", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "PRODUCT_ID", nullable = false)
+    private String productId;
 
     @Column(name = "QTY", nullable = false)
     private Long qty;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+ /*   @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="PRODUCT_ID")
-    private Product productId;
+    private Product productId;*/
 }

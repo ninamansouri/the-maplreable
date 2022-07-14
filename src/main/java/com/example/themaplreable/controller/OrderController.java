@@ -2,9 +2,12 @@ package com.example.themaplreable.controller;
 
 import com.example.themaplreable.dto.OrderLineDto;
 import com.example.themaplreable.dto.OrderValidationResponseDto;
+import com.example.themaplreable.exception.ProductNotFoundException;
 import com.example.themaplreable.service.OrderLineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,7 +16,7 @@ import java.util.List;
 /**
  * Order Controller.
  */
-@RestController()
+@Controller()
 @RequestMapping(
         value = "/orderLine",
         produces = "application/json",
@@ -41,12 +44,14 @@ public class OrderController {
     }
 
     /**
-     * Validate the the cart to become a real order line
+     * Validate the the cart to become a real order
      *
      * @return OrderValidationResponseDto
      */
     @PostMapping("/validate")
-    public ResponseEntity<OrderValidationResponseDto> placeOrder() {
-        return ResponseEntity.ok(this.orderService.placeOrder());
+    public String placeOrder(Model model) throws ProductNotFoundException {
+        OrderValidationResponseDto orderValidation = this.orderService.placeOrder();
+        model.addAttribute("orderValidation", orderValidation);
+        return "orderValidate";
     }
 }

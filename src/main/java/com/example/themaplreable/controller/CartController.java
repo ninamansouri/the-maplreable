@@ -2,12 +2,13 @@ package com.example.themaplreable.controller;
 
 import com.example.themaplreable.dto.CartLineDto;
 import com.example.themaplreable.exception.CartLineNotFoundException;
-import com.example.themaplreable.exception.EndOfStockException;
 import com.example.themaplreable.exception.ProductNotFoundException;
 import com.example.themaplreable.service.CartLineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
 /**
  * Cart Controller.
  */
-@RestController()
+@Controller()
 @RequestMapping(
         value = "/cartLine",
         produces = "application/json",
@@ -39,8 +40,10 @@ public class CartController {
      * @return List<CartLineDto>
      */
     @GetMapping("/all")
-    public ResponseEntity<List<CartLineDto>> getCartLines() {
-        return ResponseEntity.ok().body(this.cartService.getCartLines());
+    public String getCartLines(Model model) {
+        List<CartLineDto> cartLineList = this.cartService.getCartLines();
+        model.addAttribute("cartLineList", cartLineList);
+        return "cartPage";
     }
 
     /**
@@ -50,8 +53,16 @@ public class CartController {
      * @return Response
      */
     @PutMapping("/add/{productId}/{qty}")
-    public ResponseEntity<CartLineDto> addToCart(@PathVariable Long productId, @PathVariable Long qty) throws ProductNotFoundException, EndOfStockException {
+    public ResponseEntity<CartLineDto> addToCart(@PathVariable String productId, @PathVariable Long qty) throws ProductNotFoundException {
         return ResponseEntity.ok(this.cartService.addToCart(productId, qty));
+    }
+
+    /**
+     * Remove allcart (with a productId)
+     */
+    @DeleteMapping("/remove/all")
+    public void removeAllCart() {
+       this.cartService.removeAllCart();
     }
 
     /**
@@ -61,7 +72,7 @@ public class CartController {
      * @return Response
      */
     @DeleteMapping("/remove/{productId}")
-    public ResponseEntity<String> removeFromCart(@PathVariable Long productId) throws CartLineNotFoundException {
+    public ResponseEntity<String> removeFromCart(@PathVariable String productId) throws CartLineNotFoundException {
         var isRemoved = this.cartService.removeFromCart(productId);
         if (!isRemoved) {
             throw new CartLineNotFoundException();
@@ -72,13 +83,13 @@ public class CartController {
     /**
      * Change the quantity of one product in cart
      *
-     * @param cartId cartId
-     *               newQty
+     * @param productId productId
+     *                  newQty
      * @return MapleSyrupDto
      */
-    @PatchMapping("/change/{cartId}/{newQty}")
-    public ResponseEntity<CartLineDto> changeQty(@PathVariable Long cartId, @PathVariable Long newQty) throws CartLineNotFoundException {
-        return ResponseEntity.ok(this.cartService.changeQty(cartId, newQty));
+    @PatchMapping("/change/{productId}/{newQty}")
+    public ResponseEntity<CartLineDto> changeQty(@PathVariable String productId, @PathVariable Long newQty) throws CartLineNotFoundException, ProductNotFoundException {
+        return ResponseEntity.ok(this.cartService.changeQty(productId, newQty));
     }
 
 }

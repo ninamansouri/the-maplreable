@@ -29,8 +29,19 @@ footer {
 
 .maplr_size {
     width: 150px;
-    height:60px;
+    height: 60px;
 }
+
+.icon_size {
+    width: 60px;
+    height: 60px;
+    filter: brightness(0) invert(1);
+}
+
+.home-page {
+    margin-left: 1150px;
+}
+
 
 .global-container {
     padding: 30px;
@@ -47,9 +58,20 @@ footer {
 
 
 .table-button {
-    background-color: #f10505; /* Green */
+    background-color: #fa0505;
     border: 2px solid #223f5d;
     color: white;
+    width: 30px;
+    font-weight: bold;
+}
+
+.global-button {
+    background-color: #fa0505;
+    border: 2px solid #223f5d;
+    color: white;
+    width: 140px;
+    height: 50px;
+    font-weight: bold;
 }
 
 .flag_size {

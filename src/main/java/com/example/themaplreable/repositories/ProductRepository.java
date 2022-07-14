@@ -15,7 +15,12 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
     /**
-     * Get one product by syrup type
+     * Get one product by id
+     */
+    Product findById(String productId);
+
+    /**
+     * Get products by syrup type
      */
     List<Product> findByType(Type type);
 

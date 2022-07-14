@@ -42,7 +42,7 @@ public class ProductController {
     public String getCatalogue(@PathVariable(name="type", required = false) String type, Model model) throws TypeNotExistException {
         List<ProductDto> productList = productsService.getCatalogue(type);
         model.addAttribute("productList", productList);
-        return "maplrErableHome.html";
+        return "maplrErableHome";
     }
 
     /**
@@ -52,7 +52,7 @@ public class ProductController {
      * @return ProductDto
      */
     @GetMapping("/{productId}")
-    public ResponseEntity<ProductDto> getProductInfo(@PathVariable Long productId) throws ProductNotFoundException {
+    public ResponseEntity<ProductDto> getProductInfo(@PathVariable String productId) throws ProductNotFoundException {
         return ResponseEntity.ok().body(productsService.getProductInfo(productId));
     }
 }

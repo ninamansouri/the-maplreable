@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;  charset=UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+    <title>MaplrEable</title>
+</head>
+<body>
+<header>
+    <div class="row">
+        <div class="row">
+            <div class="col">
+                <img src="https://maplr.co/wp-content/uploads/2018/11/Maplr-logo-white.png.webp" class="maplr_size"
+                     alt="Maplr" id="logo_maplr">
+            </div>
+            <div class="col home-page">
+                <a href="/product/all"><img src="/img/return.svg" class="icon_size" alt="Cart" id="logo_cart"></a>
+                <span>Home</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="global-container">
+
+    <div th:if="${orderValidation.isOrderValid}">
+        <div class="row">
+            <h5 class="title-style">Your order has been confirmed, you will receive it in 3 to 5 working days.</h5>
+        </div>
+
+        <div class="row">
+            <table class="table table-style">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">Id Product</th>
+                    <th scope="col">Quantity</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="orderLine : ${orderValidation.orderLines}">
+                    <td><span th:text="${orderLine.productId}"></span></td>
+                    <td><span th:text="${orderLine.qty}"></span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div th:unless="${orderValidation.isOrderValid}">
+        <div class="row">
+            <h5 class="title-style">VALIDATION ORDER FAIL : <span th:text="${orderValidation.error}"></span></h5>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>
+        <img src="/img/canada_flag.png" alt="Canada flag" class="flag_size">
+        - Design by Nina MANSOURI -
+        <a href="nina.mansouri@maplr.co">nina.mansouri@maplr.co</a>
+    </p>
+</footer>
+
+
+</body>
+</html>

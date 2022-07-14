@@ -1,14 +1,10 @@
 package com.example.themaplreable.service;
 
 
-import com.example.themaplreable.converters.CartLineConverter;
 import com.example.themaplreable.converters.ProductConverter;
 import com.example.themaplreable.dto.ProductDto;
-import com.example.themaplreable.exception.EndOfStockException;
 import com.example.themaplreable.exception.ProductNotFoundException;
 import com.example.themaplreable.exception.TypeNotExistException;
-import com.example.themaplreable.model.CartLine;
-import com.example.themaplreable.model.Product;
 import com.example.themaplreable.model.enums.Type;
 import com.example.themaplreable.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,8 +60,8 @@ public class ProductServiceImpl implements ProductService {
      * @return ProductDto
      */
     @Override
-    public ProductDto getProductInfo(Long productId) throws ProductNotFoundException {
-        var product = this.productRepository.findById(productId).orElse(null);
+    public ProductDto getProductInfo(String productId) throws ProductNotFoundException {
+        var product = this.productRepository.findById(productId);
         if(product == null) {
             throw new ProductNotFoundException(productId);
         }

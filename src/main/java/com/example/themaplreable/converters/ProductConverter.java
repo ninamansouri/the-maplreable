@@ -18,7 +18,7 @@ public class ProductConverter {
     public static ProductDto entityToDto(Product product) {
         ProductDto productDto = new ProductDto();
         if (product != null) {
-            productDto.setId(product.getId().toString());
+            productDto.setId(product.getId());
             productDto.setName(product.getName());
             productDto.setDescription(product.getDescription());
             productDto.setImage(product.getImage());
@@ -37,7 +37,7 @@ public class ProductConverter {
     public static Product dtoToEntity(ProductDto productDto) {
         Product product = new Product();
         if (productDto != null) {
-            product.setId(Long.valueOf(productDto.getId()));
+            product.setId(productDto.getId());
             product.setName(productDto.getName());
             product.setDescription(productDto.getDescription());
             product.setImage(productDto.getImage());

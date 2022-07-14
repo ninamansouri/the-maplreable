@@ -3,7 +3,6 @@ package com.example.themaplreable.service;
 
 import com.example.themaplreable.dto.CartLineDto;
 import com.example.themaplreable.exception.CartLineNotFoundException;
-import com.example.themaplreable.exception.EndOfStockException;
 import com.example.themaplreable.exception.ProductNotFoundException;
 
 import java.util.List;
@@ -21,15 +20,20 @@ public interface CartLineService {
     /**
      * Add a product to cart (with a productId)
      */
-    CartLineDto addToCart(Long productId, Long qty) throws ProductNotFoundException, EndOfStockException;
+    CartLineDto addToCart(String productId, Long qty) throws ProductNotFoundException;
+
+    /**
+     * Remove all cart
+     */
+    void removeAllCart();
 
     /**
      * Remove a product from cart (with a productId)
      */
-    boolean removeFromCart(Long productId);
+    boolean removeFromCart(String productId);
 
     /**
      * Change the quantity of one product in cart
      */
-    CartLineDto changeQty(Long cartId, Long newQty) throws CartLineNotFoundException;
+    CartLineDto changeQty(String productId, Long newQty) throws CartLineNotFoundException, ProductNotFoundException;
 }

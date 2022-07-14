@@ -1,10 +1,9 @@
 package com.example.themaplreable.service;
 
 
-import com.example.themaplreable.dto.CartLineDto;
 import com.example.themaplreable.dto.OrderLineDto;
 import com.example.themaplreable.dto.OrderValidationResponseDto;
-import com.example.themaplreable.model.OrderLine;
+import com.example.themaplreable.exception.ProductNotFoundException;
 
 import java.util.List;
 
@@ -20,8 +19,8 @@ public interface OrderLineService {
     List<OrderLineDto> getOrderLines();
 
     /**
-     * Validate the the cart to become a real order line
+     * Validate the the cart to become a real order
      */
-    OrderValidationResponseDto placeOrder();
+    OrderValidationResponseDto placeOrder() throws ProductNotFoundException;
 
 }

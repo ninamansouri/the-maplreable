@@ -10,8 +10,6 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CartLineDto {
 
-    private Long id;
-
     private String productId;
 
     private String name;
