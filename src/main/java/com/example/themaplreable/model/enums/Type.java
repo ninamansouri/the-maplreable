@@ -13,5 +13,5 @@ public enum Type {
     DARK,
 
     @JsonAlias("clear")
-    clear
+    CLEAR
 }

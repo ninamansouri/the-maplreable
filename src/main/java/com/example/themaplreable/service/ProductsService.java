@@ -37,12 +37,12 @@ public class ProductsService {
      * @param type type
      * @return List<ProductDto>
      */
-    public List<ProductDto> getCatalogue(Optional<String> type) throws TypeNotExistException {
-        if (type.isPresent()) {
-            if (asMyEnum(type.get()) == null) {
-                throw new TypeNotExistException(type.get());
+    public List<ProductDto> getCatalogue(String type) throws TypeNotExistException {
+        if (type != null) {
+            if (asMyEnum(type) == null) {
+                throw new TypeNotExistException(type);
             }
-            return ProductsConverter.entitiesToDtos(this.productRepository.findByType(Type.valueOf(type.get())));
+            return ProductsConverter.entitiesToDtos(this.productRepository.findByType(Type.valueOf(type)));
         }
 
         return ProductsConverter.entitiesToDtos(this.productRepository.findAll());

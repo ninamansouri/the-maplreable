@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Products Controller.
@@ -33,8 +32,8 @@ public class ProductsController {
      * @param type type
      * @return ResponseEntity<List<ProductDto>>
      */
-    @GetMapping(value = {"/", "/{type}"})
-    public ResponseEntity<List<ProductDto>> getCatalogue(@PathVariable(name = "type", required = false) Optional<String> type, Model model) throws TypeNotExistException {
+    @GetMapping("")
+    public ResponseEntity<List<ProductDto>> getCatalogue(@RequestParam(required = false) String type, Model model) throws TypeNotExistException {
       /*  List<ProductDto> productList = productService.getCatalogue(type);
         model.addAttribute("productList", productList);
         return "maplrErableHome";*/
